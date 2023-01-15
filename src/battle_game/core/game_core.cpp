@@ -128,7 +128,6 @@ void GameCore::ProcessEventQueue() {
     event_queue_.pop();
   }
 }
-
 bool GameCore::IsBlockedByObstacles(glm::vec2 p) const {
   if (IsOutOfRange(p)) {
     return true;

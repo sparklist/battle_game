@@ -1,6 +1,6 @@
 #pragma once
 #include "battle_game/core/unit.h"
-
+#include <queue>
 namespace battle_game::unit {
 class Supertank : public Unit {
  public:
@@ -18,5 +18,7 @@ class Supertank : public Unit {
 
   float turret_rotation_{0.0f};
   uint32_t fire_count_down_{0};
+  double damping;
+  std::queue<glm::vec2> displacement;
 };
 }  // namespace battle_game::unit

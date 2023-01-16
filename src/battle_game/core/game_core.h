@@ -183,7 +183,7 @@ class GameCore {
   glm::vec2 RandomOnCircle();
   glm::vec2 RandomInCircle();
 
- private:
+ public:
   std::map<uint32_t, std::unique_ptr<Unit>> units_;
   uint32_t unit_index_{1};
   std::map<uint32_t, std::unique_ptr<Bullet>> bullets_;

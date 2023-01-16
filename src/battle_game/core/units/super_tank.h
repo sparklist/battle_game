@@ -13,6 +13,7 @@ class Supertank : public Unit {
   void TankMove(float move_speed, float rotate_angular_speed);
   void TurretRotate();
   void Fire();
+  void BlockClick();
   [[nodiscard]] const char *UnitName() const override;
   [[nodiscard]] const char *Author() const override;
 

@@ -22,4 +22,21 @@ void Block::Render() {
   battle_game::SetTransformation(position_, rotation_, scale_);
   battle_game::DrawModel(0);
 }
+direction Block::bouncedirection (glm::vec2 p, glm::vec2 velocity) const{
+  auto nextposition = WorldToLocal( p + velocity * kSecondPerTick);
+  p = WorldToLocal(p);
+  if (nextposition.x >= -scale_.x && p.x <= -scale_.x && p.y >= -scale_.y &&
+      p.y <= scale_.y)
+    return left;
+  if (nextposition.x <= scale_.x && p.x > scale_.x && p.y >= -scale_.y &&
+      p.y <= scale_.y)
+    return right;
+  if (nextposition.y <= scale_.y && p.y >= scale_.y &&
+      p.x >= -scale_.x && p.x <= scale_.x)
+    return up;
+  if (nextposition.y >= -scale_.y && p.y <= -scale_.y && p.x >= -scale_.x &&
+      p.x <= scale_.x)
+    return down;
+  return no;
+}
 }  // namespace battle_game::obstacle

@@ -83,6 +83,7 @@ void Supertank::Update() {
   TankMove(3.0f, glm::radians(180.0f));
   TurretRotate();
   Fire();
+  BlockClick();
 }
 
 void Supertank::TankMove(float move_speed, float rotate_angular_speed) {
@@ -146,6 +147,9 @@ void Supertank::Fire() {
         GenerateBullet<bullet::CannonBall>(
             position_ + Rotate({0.0f, 1.2f}, turret_rotation_),
             turret_rotation_, GetDamageScale(), velocity);
+        GenerateBullet<bullet::Missile>(
+            position_ + Rotate({0.0f, 1.2f}, turret_rotation_),
+            turret_rotation_, GetDamageScale(), velocity, 25.0f);
         velocity = Rotate(glm::vec2{0.0f, 20.0f}, turret_rotation_ + glm::radians(10.0f));
         GenerateBullet<bullet::CannonBall>(
             position_ + Rotate({0.0f, 1.2f}, turret_rotation_ + glm::radians(10.0f)),
@@ -166,7 +170,7 @@ void Supertank::Fire() {
                                   glm::vec4{offset, 0.0f, 0.0f}};
           displacement.push(new_displacement);
         }
-        fire_count_down_ = kTickPerSecond / 4;  // Fire interval 1 second.
+        fire_count_down_ = kTickPerSecond;  // Fire interval 1 second.
       }
     }
   }
@@ -177,6 +181,18 @@ bool Supertank::IsHit(glm::vec2 position) const {
   return position.x > -0.8f && position.x < 0.8f && position.y > -1.0f &&
          position.y < 1.0f && position.x + position.y < 1.6f &&
          position.y - position.x < 1.6f;
+}
+
+void Supertank::BlockClick() {
+  //auto theta = game_core_->RandomFloat() * glm::pi<float>() * 2.0f;
+  auto player = game_core_->GetPlayer(player_id_);
+  if (player) {
+    auto &input_data = player->GetInputData();
+    if (input_data.mouse_button_down[GLFW_MOUSE_BUTTON_RIGHT]) {
+      game_core_->AddObstacle<battle_game::obstacle::Block>(
+          input_data.mouse_cursor_position);
+    }
+  }
 }
 
 const char *Supertank::UnitName() const {

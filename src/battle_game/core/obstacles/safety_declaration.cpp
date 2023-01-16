@@ -54,4 +54,20 @@ void SafetyDeclaration::Update() {
     game_core_->PushEventRemoveObstacle(id_);
   }
 }
+direction SafetyDeclaration::bouncedirection(glm::vec2 p, glm::vec2 velocity) const{
+  /* auto nextposition = p + velocity * kSecondPerTick;
+  if (nextposition.x >= -scale_.x && p.x <= -scale_.x && p.y >= -scale_.y &&
+      p.y <= scale_.y)
+    return left;
+  if (nextposition.x <= scale_.x && p.x > scale_.x && p.y >= -scale_.y &&
+      p.y <= scale_.y)
+    return right;
+  if (nextposition.y <= scale_.y && p.y >= scale_.y &&
+      p.x >= -scale_.x && p.x <= scale_.x)
+    return up;
+  if (nextposition.y >= -scale_.y && p.y <= -scale_.y && p.x >= -scale_.x &&
+      p.x <= scale_.x)
+    return down;*/
+  return no;
+}
 }  // namespace battle_game::obstacle

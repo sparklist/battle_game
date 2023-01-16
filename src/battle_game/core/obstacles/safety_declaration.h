@@ -1,5 +1,6 @@
 #pragma once
 #include "battle_game/core/obstacle.h"
+#include "battle_game/core/game_core.h"
 
 namespace battle_game::obstacle {
 class SafetyDeclaration : public Obstacle {
@@ -14,6 +15,8 @@ class SafetyDeclaration : public Obstacle {
   [[nodiscard]] bool IsBlocked(glm::vec2 p) const override;
   void Render() override;
   void Update() override;
+  [[nodiscard]] direction bouncedirection(glm::vec2 p,
+                                          glm::vec2 velocity) const override;
   glm::vec2 scale_{3.0f};
   uint32_t valid_time_{0};
 };
